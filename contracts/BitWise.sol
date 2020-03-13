@@ -9,9 +9,14 @@ contract BitWise {
             }
         }
     }
-
+    
     function countBitSetAsm(uint8 data ) public pure returns (uint8 result) {
-        // replace this with inline assembly code
-        result = countBitSet(data);
+    assembly{
+            for {let i := 0} lt(i,8) {i := add(i,1)}{
+                if and(shr(i, data), 1)  {
+                    result := add(result,1)
+                }
+            }
+        }
     }
 }
